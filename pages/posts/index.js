@@ -1,40 +1,30 @@
+import Head from 'next/head';
+import { Fragment } from 'react';
 import AllPosts from '../../components/posts/all-posts'
+import { getAllPosts } from '../../lib/posts.util';
 
-const DUMMY_POSTS = [
-    {
-        slug: 'getting-started-with-nextJS',
-        title: 'Getting Started With NextJS',
-        image: 'getting-started-nextjs.png',
-        excerp: 'NextJS is a framework for react',
-        date: '2022-02-10'
-    },
-    {
-        slug: 'getting-started-with-nextJS2',
-        title: 'Getting Started With NextJS',
-        image: 'getting-started-nextjs.png',
-        excerp: 'NextJS is a framework for react',
-        date: '2022-02-10'
-    },
-    {
-        slug: 'getting-started-with-nextJS3',
-        title: 'Getting Started With NextJS',
-        image: 'getting-started-nextjs.png',
-        excerp: 'NextJS is a framework for react',
-        date: '2022-02-10'
-    },
-    {
-        slug: 'getting-started-with-nextJS4',
-        title: 'Getting Started With NextJS',
-        image: 'getting-started-nextjs.png',
-        excerp: 'NextJS is a framework for react',
-        date: '2022-02-10'
-    }
-]
 
-function AllPostsPage() {
+function AllPostsPage(props) {
     return (
-        <AllPosts posts={DUMMY_POSTS} />
+        <Fragment>
+            <Head>
+                <title>All Posts</title>
+                <meta name="description" content="A list of all programming-related tutorials ans posts" />
+            </Head>
+            <AllPosts posts={props.posts} />
+        </Fragment>
+
     )
+}
+
+export function getStaticProps() {
+    const allPosts = getAllPosts()
+
+    return {
+        props: {
+            posts: allPosts
+        }
+    }
 }
 
 export default AllPostsPage;
